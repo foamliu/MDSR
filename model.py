@@ -13,13 +13,13 @@ def build_model(num_layers=80, feature_size=64, scaling_factor=1.0):
     # One convolution before res blocks and to convert to required feature depth
     x = Conv2D(feature_size, (kernel, kernel), activation='relu', padding='same', name='conv1')(input_tensor)
 
-    temp = K.variable((3,))
-    for i in [2, 3, 4]:
-        temp[i] = x
+    temp = []
+    for i, _ in enumerate([2, 3, 4]):
+        temp.append(x)
         for _ in [1, 2]:
             temp[i] = Conv2D(feature_size, (5, 5), activation='relu', padding='same', name='conv1')(temp[i])
             temp[i] = Conv2D(feature_size, (5, 5), padding='same', name='conv1')(temp[i])
-    x = Concatenate([temp[2], temp[3], temp[4]])
+    x = Concatenate([temp[0], temp[1], temp[2]])
 
     # Store the output of the first convolution to add later
     conv_1 = x
