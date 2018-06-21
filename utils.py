@@ -3,7 +3,7 @@ import multiprocessing
 import cv2 as cv
 import keras.backend as K
 import tensorflow as tf
-from keras.layers import Conv2D, Add, Lambda
+from keras.layers import Conv2D, add, Lambda
 from tensorflow.python.client import device_lib
 
 
@@ -36,7 +36,7 @@ stride: convolution stride
 def res_block(input_tensor, features=64, kernel=3):
     x = Conv2D(features, (kernel, kernel), activation='relu', padding='same')(input_tensor)
     x = Conv2D(features, (kernel, kernel), padding='same')(x)
-    return Add()([input_tensor, x])
+    return add([input_tensor, x])
 
 
 """
