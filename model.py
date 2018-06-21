@@ -13,16 +13,15 @@ def build_model(num_layers=80, feature_size=64, scaling_factor=1.0):
     # One convolution before res blocks and to convert to required feature depth
     x = Conv2D(feature_size, (kernel, kernel), activation='relu', padding='same')(input_tensor)
 
+    conv_x2 = conv_x3 = conv_x4 = x
     for _ in [1, 2]:
-        conv_x2 = Conv2D(feature_size, (5, 5), activation='relu', padding='same')(x)
+        conv_x2 = Conv2D(feature_size, (5, 5), activation='relu', padding='same')(conv_x2)
         conv_x2 = Conv2D(feature_size, (5, 5), padding='same')(conv_x2)
-
     for _ in [1, 2]:
-        conv_x3 = Conv2D(feature_size, (5, 5), activation='relu', padding='same')(x)
+        conv_x3 = Conv2D(feature_size, (5, 5), activation='relu', padding='same')(conv_x3)
         conv_x3 = Conv2D(feature_size, (5, 5), padding='same')(conv_x3)
-
     for _ in [1, 2]:
-        conv_x4 = Conv2D(feature_size, (5, 5), activation='relu', padding='same')(x)
+        conv_x4 = Conv2D(feature_size, (5, 5), activation='relu', padding='same')(conv_x4)
         conv_x4 = Conv2D(feature_size, (5, 5), padding='same')(conv_x4)
 
     # Add the residual blocks to the model
