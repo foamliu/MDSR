@@ -5,9 +5,9 @@ import tensorflow as tf
 from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 from keras.utils import multi_gpu_model
 
-from EDSR import build_model
 from config import patience, epochs, num_train_samples, num_valid_samples, batch_size
 from data_generator import train_gen, valid_gen
+from model import build_model
 from utils import get_available_gpus, custom_loss
 
 if __name__ == '__main__':
@@ -61,9 +61,9 @@ if __name__ == '__main__':
     callbacks = [tensor_board, model_checkpoint, early_stop, reduce_lr]
 
     # Start Fine-tuning
-    new_model.fit_generator(train_gen(scale),
+    new_model.fit_generator(train_gen(),
                             steps_per_epoch=num_train_samples // batch_size,
-                            validation_data=valid_gen(scale),
+                            validation_data=valid_gen(),
                             validation_steps=num_valid_samples // batch_size,
                             epochs=epochs,
                             verbose=1,

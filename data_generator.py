@@ -28,9 +28,8 @@ def preprocess_input(x):
 
 
 class DataGenSequence(Sequence):
-    def __init__(self, usage, scale):
+    def __init__(self, usage):
         self.usage = usage
-        self.scale = scale
 
         if usage == 'train':
             names_file = 'train_names.txt'
@@ -81,12 +80,12 @@ class DataGenSequence(Sequence):
         np.random.shuffle(self.names)
 
 
-def train_gen(scale):
-    return DataGenSequence('train', scale)
+def train_gen():
+    return DataGenSequence('train')
 
 
-def valid_gen(scale):
-    return DataGenSequence('valid', scale)
+def valid_gen():
+    return DataGenSequence('valid')
 
 
 def split_data():

@@ -6,7 +6,7 @@ import cv2 as cv
 import keras.backend as K
 import numpy as np
 
-from EDSR import build_model
+from model import build_model
 from config import img_size
 from data_generator import random_crop, preprocess_input
 
