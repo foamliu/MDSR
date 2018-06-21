@@ -14,10 +14,9 @@ image_folder = '/mnt/code/ImageNet-Downloader/image/resized'
 
 def random_crop(image_bgr):
     full_size = image_bgr.shape[0]
-    y_size = img_size * 4
-    u = random.randint(0, full_size - y_size)
-    v = random.randint(0, full_size - y_size)
-    y = image_bgr[v:v + y_size, u:u + y_size]
+    u = random.randint(0, full_size - img_size * 4)
+    v = random.randint(0, full_size - img_size * 4)
+    y = image_bgr[v:v + img_size * 4, u:u + img_size * 4]
     return y
 
 
