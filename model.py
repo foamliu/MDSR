@@ -17,8 +17,8 @@ def build_model(num_layers=80, feature_size=64, scaling_factor=1.0):
     for i, _ in enumerate([2, 3, 4]):
         temp.append(x)
         for _ in [1, 2]:
-            temp[i] = Conv2D(feature_size, (5, 5), activation='relu', padding='same', name='conv1')(temp[i])
-            temp[i] = Conv2D(feature_size, (5, 5), padding='same', name='conv1')(temp[i])
+            temp[i] = Conv2D(feature_size, (5, 5), activation='relu', padding='same')(temp[i])
+            temp[i] = Conv2D(feature_size, (5, 5), padding='same')(temp[i])
     x = average(temp)
 
     # Store the output of the first convolution to add later
