@@ -3,17 +3,18 @@ import random
 from random import shuffle
 
 import cv2 as cv
+import imutils
 import numpy as np
 from keras.utils import Sequence
-import imutils
+
 from config import batch_size, img_size, channel
 
 image_folder = '/mnt/code/ImageNet-Downloader/image/resized'
 
 
-def random_crop(image_bgr, scale):
+def random_crop(image_bgr):
     full_size = image_bgr.shape[0]
-    y_size = img_size * scale
+    y_size = img_size * 4
     u = random.randint(0, full_size - y_size)
     v = random.randint(0, full_size - y_size)
     y = image_bgr[v:v + y_size, u:u + y_size]
@@ -47,11 +48,11 @@ class DataGenSequence(Sequence):
     def __getitem__(self, idx):
         i = idx * batch_size
 
-        out_img_rows, out_img_cols = img_size * self.scale, img_size * self.scale
-
         length = min(batch_size, (len(self.names) - i))
         batch_x = np.empty((length, img_size, img_size, channel), dtype=np.float32)
-        batch_y = np.empty((length, out_img_rows, out_img_cols, channel), dtype=np.float32)
+        batch_y_x2 = np.empty((length, img_size * 2, img_size * 2, channel), dtype=np.float32)
+        batch_y_x3 = np.empty((length, img_size * 3, img_size * 3, channel), dtype=np.float32)
+        batch_y_x4 = np.empty((length, img_size * 4, img_size * 4, channel), dtype=np.float32)
 
         for i_batch in range(length):
             name = self.names[i]
@@ -66,15 +67,20 @@ class DataGenSequence(Sequence):
 
             angle = random.choice((0, 90, 180, 270))
             y = imutils.rotate_bound(y, angle)
+            y_x4 = y
+            y_x2 = cv.resize(y, (img_size * 2, img_size * 2), cv.INTER_CUBIC)
+            y_x3 = cv.resize(y, (img_size * 3, img_size * 3), cv.INTER_CUBIC)
 
             x = cv.resize(y, (img_size, img_size), cv.INTER_CUBIC)
 
             batch_x[i_batch, :, :] = preprocess_input(x.astype(np.float32))
-            batch_y[i_batch, :, :] = y
+            batch_y_x2[i_batch, :, :] = y_x2
+            batch_y_x3[i_batch, :, :] = y_x3
+            batch_y_x4[i_batch, :, :] = y_x4
 
             i += 1
 
-        return batch_x, batch_y
+        return batch_x, [batch_y_x2, batch_y_x3, batch_y_x4]
 
     def on_epoch_end(self):
         np.random.shuffle(self.names)
