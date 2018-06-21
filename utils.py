@@ -51,7 +51,7 @@ activation: activation function
 """
 
 
-def upsample(x, scale=2, features=64):
+def upsample(x, scale=2, features=64, kernel=3):
     assert scale in [2, 3, 4]
     x = Conv2D(features, (kernel, kernel), padding='same')(x)
     if scale == 2:
