@@ -1,5 +1,5 @@
 import keras.backend as K
-from keras.layers import Input, Conv2D, Add, Concatenate
+from keras.layers import Input, Conv2D, Add, concatenate
 from keras.models import Model
 from keras.utils import plot_model
 
@@ -19,7 +19,7 @@ def build_model(num_layers=80, feature_size=64, scaling_factor=1.0):
         for _ in [1, 2]:
             temp[i] = Conv2D(feature_size, (5, 5), activation='relu', padding='same', name='conv1')(temp[i])
             temp[i] = Conv2D(feature_size, (5, 5), padding='same', name='conv1')(temp[i])
-    x = Concatenate([temp[0], temp[1], temp[2]])
+    x = concatenate(temp)
 
     # Store the output of the first convolution to add later
     conv_1 = x
