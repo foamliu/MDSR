@@ -27,17 +27,16 @@ def get_available_cpus():
 Creates a convolutional residual block
 as defined in the paper. More on
 this inside EDSR.py
-x: input to pass through the residual block
-channels: number of channels to compute
+input_tensor: input to pass through the residual block
+features: number of features to compute
 stride: convolution stride
 """
 
 
-def res_block(x, channels=64, scale=1, kernel=3):
-    tmp = Conv2D(channels, (kernel, kernel), activation='relu', padding='same')(x)
-    tmp = Conv2D(channels, (kernel, kernel), padding='same')(tmp)
-    tmp = Lambda(lambda x: x * scale)(tmp)
-    return Add()([x, tmp])
+def res_block(input_tensor, features=64, kernel=3):
+    x = Conv2D(features, (kernel, kernel), activation='relu', padding='same')(input_tensor)
+    x = Conv2D(features, (kernel, kernel), padding='same')(x)
+    return Add()([input_tensor, x])
 
 
 """
