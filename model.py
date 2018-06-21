@@ -11,7 +11,7 @@ def build_model(num_layers=80, feature_size=64, scaling_factor=1.0):
     input_tensor = Input(shape=(img_size, img_size, channel))
 
     # One convolution before res blocks and to convert to required feature depth
-    x = Conv2D(feature_size, (kernel, kernel), activation='relu', padding='same', name='conv1')(input_tensor)
+    x = Conv2D(feature_size, (kernel, kernel), activation='relu', padding='same')(input_tensor)
 
     temp = []
     for i, _ in enumerate([2, 3, 4]):
