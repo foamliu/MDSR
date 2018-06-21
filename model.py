@@ -1,5 +1,5 @@
 import keras.backend as K
-from keras.layers import Input, Conv2D, Add, average
+from keras.layers import Input, Conv2D, add
 from keras.models import Model
 from keras.utils import plot_model
 
@@ -13,28 +13,28 @@ def build_model(num_layers=80, feature_size=64, scaling_factor=1.0):
     # One convolution before res blocks and to convert to required feature depth
     x = Conv2D(feature_size, (kernel, kernel), activation='relu', padding='same')(input_tensor)
 
-    temp = []
-    for i, _ in enumerate([2, 3, 4]):
-        temp.append(x)
-        for _ in [1, 2]:
-            temp[i] = Conv2D(feature_size, (5, 5), activation='relu', padding='same')(temp[i])
-            temp[i] = Conv2D(feature_size, (5, 5), padding='same')(temp[i])
-    x = average(temp)
+    for _ in [1, 2]:
+        conv_x2 = Conv2D(feature_size, (5, 5), activation='relu', padding='same')(x)
+        conv_x2 = Conv2D(feature_size, (5, 5), padding='same')(conv_x2)
 
-    # Store the output of the first convolution to add later
-    conv_1 = x
+    for _ in [1, 2]:
+        conv_x3 = Conv2D(feature_size, (5, 5), activation='relu', padding='same')(x)
+        conv_x3 = Conv2D(feature_size, (5, 5), padding='same')(conv_x3)
+
+    for _ in [1, 2]:
+        conv_x4 = Conv2D(feature_size, (5, 5), activation='relu', padding='same')(x)
+        conv_x4 = Conv2D(feature_size, (5, 5), padding='same')(conv_x4)
 
     # Add the residual blocks to the model
     for i in range(num_layers):
         x = utils.res_block(x, feature_size, scale=scaling_factor)
 
     x = Conv2D(feature_size, (kernel, kernel), padding='same')(x)
-    x = Add()([x, conv_1])
 
     # Upsample output of the convolution
-    x2 = utils.upsample(x, 2, feature_size)
-    x3 = utils.upsample(x, 3, feature_size)
-    x4 = utils.upsample(x, 4, feature_size)
+    x2 = utils.upsample(add([x, conv_x2]), 2, feature_size)
+    x3 = utils.upsample(add([x, conv_x3]), 3, feature_size)
+    x4 = utils.upsample(add([x, conv_x4]), 4, feature_size)
 
     outputs = [x2, x3, x4]
 

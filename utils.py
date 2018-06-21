@@ -10,9 +10,8 @@ from config import kernel, epsilon_sqr
 
 
 def custom_loss(y_true, y_pred):
-    # diff = y_pred - y_true
-    # return K.mean(K.sqrt(K.square(diff) + epsilon_sqr))
-    return tf.reduce_mean(tf.losses.absolute_difference(y_true, y_pred))
+    diff = y_pred - y_true
+    return K.mean(K.sqrt(K.square(diff) + epsilon_sqr))
 
 
 # getting the number of GPUs
