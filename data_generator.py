@@ -67,11 +67,12 @@ class DataGenSequence(Sequence):
 
             angle = random.choice((0, 90, 180, 270))
             y = imutils.rotate_bound(y, angle)
-            y_x4 = y
-            y_x2 = cv.resize(y, (img_size * 2, img_size * 2), cv.INTER_CUBIC)
-            y_x3 = cv.resize(y, (img_size * 3, img_size * 3), cv.INTER_CUBIC)
 
             x = cv.resize(y, (img_size, img_size), cv.INTER_CUBIC)
+
+            y_x2 = cv.resize(y, (img_size * 2, img_size * 2), cv.INTER_CUBIC)
+            y_x3 = cv.resize(y, (img_size * 3, img_size * 3), cv.INTER_CUBIC)
+            y_x4 = y
 
             batch_x[i_batch, :, :] = preprocess_input(x.astype(np.float32))
             batch_y_x2[i_batch, :, :] = y_x2
