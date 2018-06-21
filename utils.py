@@ -6,12 +6,10 @@ import tensorflow as tf
 from keras.layers import Conv2D, Add, Lambda
 from tensorflow.python.client import device_lib
 
-from config import kernel, epsilon_sqr
-
 
 def custom_loss(y_true, y_pred):
     diff = y_pred - y_true
-    return K.mean(K.sqrt(K.square(diff) + epsilon_sqr))
+    return K.mean(K.sqrt(K.square(diff) + K.epsilon()))
 
 
 # getting the number of GPUs
@@ -35,7 +33,7 @@ stride: convolution stride
 """
 
 
-def res_block(x, channels=64, scale=1):
+def res_block(x, channels=64, scale=1, kernel=3):
     tmp = Conv2D(channels, (kernel, kernel), activation='relu', padding='same')(x)
     tmp = Conv2D(channels, (kernel, kernel), padding='same')(tmp)
     tmp = Lambda(lambda x: x * scale)(tmp)
