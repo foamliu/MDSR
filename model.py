@@ -2,7 +2,7 @@ import keras.backend as K
 from keras.layers import Input, Conv2D, Add, Concatenate
 from keras.models import Model
 from keras.utils import plot_model
-import numpy as np
+
 import utils
 from config import img_size, channel, kernel
 
@@ -13,7 +13,7 @@ def build_model(num_layers=80, feature_size=64, scaling_factor=1.0):
     # One convolution before res blocks and to convert to required feature depth
     x = Conv2D(feature_size, (kernel, kernel), activation='relu', padding='same', name='conv1')(input_tensor)
 
-    temp = np.empty((3,))
+    temp = K.placeholder((3,))
     for i in [2, 3, 4]:
         temp[i] = x
         for _ in [1, 2]:
