@@ -14,15 +14,12 @@ def build_model(num_layers=80, feature_size=64, scaling_factor=1.0):
     x = Conv2D(feature_size, (3, 3), activation='relu', padding='same')(input_tensor)
 
     conv_x2 = conv_x3 = conv_x4 = x
-    for _ in [1, 2]:
-        conv_x2 = utils.res_block(conv_x2, feature_size, scale=scaling_factor, kernel=5)
-        conv_x2 = utils.res_block(conv_x2, feature_size, scale=scaling_factor, kernel=5)
-    for _ in [1, 2]:
-        conv_x3 = utils.res_block(conv_x3, feature_size, scale=scaling_factor, kernel=5)
-        conv_x3 = utils.res_block(conv_x3, feature_size, scale=scaling_factor, kernel=5)
-    for _ in [1, 2]:
-        conv_x4 = utils.res_block(conv_x4, feature_size, scale=scaling_factor, kernel=5)
-        conv_x4 = utils.res_block(conv_x4, feature_size, scale=scaling_factor, kernel=5)
+    conv_x2 = utils.res_block(conv_x2, feature_size, scale=scaling_factor, kernel=5)
+    conv_x2 = utils.res_block(conv_x2, feature_size, scale=scaling_factor, kernel=5)
+    conv_x3 = utils.res_block(conv_x3, feature_size, scale=scaling_factor, kernel=5)
+    conv_x3 = utils.res_block(conv_x3, feature_size, scale=scaling_factor, kernel=5)
+    conv_x4 = utils.res_block(conv_x4, feature_size, scale=scaling_factor, kernel=5)
+    conv_x4 = utils.res_block(conv_x4, feature_size, scale=scaling_factor, kernel=5)
 
     # Add the residual blocks to the model
     for i in range(num_layers):
