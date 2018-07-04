@@ -35,6 +35,7 @@ if __name__ == '__main__':
 
         x = cv.resize(y, (img_size, img_size), cv.INTER_CUBIC)
         input = x.copy()
+        input_x4 = cv.resize(input, (img_size * max_scale, img_size * max_scale), cv.INTER_CUBIC)
 
         x = preprocess_input(x.astype(np.float32))
         x_test = np.empty((1, img_size, img_size, 3), dtype=np.float32)
@@ -57,6 +58,7 @@ if __name__ == '__main__':
             os.makedirs('images')
 
         cv.imwrite('images/{}_input.png'.format(i), input)
+        cv.imwrite('images/{}_input_x4.png'.format(i), input_x4)
         cv.imwrite('images/{}_gt.png'.format(i), y)
         cv.imwrite('images/{}_out_x2.png'.format(i), out_x2)
         cv.imwrite('images/{}_out_x3.png'.format(i), out_x3)
