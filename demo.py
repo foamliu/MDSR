@@ -7,14 +7,11 @@ import keras.backend as K
 import numpy as np
 
 from model import build_model
-from config import img_size
+from config import img_size, max_scale
 from data_generator import random_crop, preprocess_input
 
 if __name__ == '__main__':
-    channel = 3
-    scale = 4
-
-    model_weights_path = 'models/model.16-9.0500.hdf5'
+    model_weights_path = 'models/model.16-21.4264.hdf5'
     model = build_model()
     model.load_weights(model_weights_path)
 
@@ -27,7 +24,7 @@ if __name__ == '__main__':
 
     samples = random.sample(names, 10)
 
-    h, w = img_size * scale, img_size * scale
+    h, w = img_size * max_scale, img_size * max_scale
 
     for i in range(len(samples)):
         image_name = samples[i]
@@ -37,21 +34,35 @@ if __name__ == '__main__':
         y = random_crop(image_bgr)
 
         x = cv.resize(y, (img_size, img_size), cv.INTER_CUBIC)
-        image = cv.resize(x, (h, w), cv.INTER_CUBIC)
+        input = x.copy()
 
         x = preprocess_input(x.astype(np.float32))
         x_test = np.empty((1, img_size, img_size, 3), dtype=np.float32)
         x_test[0] = x
         out = model.predict(x_test)
-        out = out.reshape((h, w, 3))
-        out = np.clip(out, 0.0, 255.0)
-        out = out.astype(np.uint8)
+
+        out_x2 = out[0][0]
+        out_x2 = out_x2.reshape((img_size * 2, img_size * 2, 3))
+        out_x2 = np.clip(out_x2, 0.0, 255.0)
+        out_x2 = out_x2.astype(np.uint8)
+
+        out_x3 = out[0][1]
+        out_x3 = out_x3.reshape((img_size * 3, img_size * 3, 3))
+        out_x3 = np.clip(out_x3, 0.0, 255.0)
+        out_x3 = out_x3.astype(np.uint8)
+
+        out_x4 = out[0][2]
+        out_x4 = out_x4.reshape((img_size * 4, img_size * 4, 3))
+        out_x4 = np.clip(out_x4, 0.0, 255.0)
+        out_x4 = out_x4.astype(np.uint8)
 
         if not os.path.exists('images'):
             os.makedirs('images')
 
-        cv.imwrite('images/{}_image.png'.format(i), image)
+        cv.imwrite('images/{}_input.png'.format(i), input)
         cv.imwrite('images/{}_gt.png'.format(i), y)
-        cv.imwrite('images/{}_out.png'.format(i), out)
+        cv.imwrite('images/{}_out_x2.png'.format(i), out_x2)
+        cv.imwrite('images/{}_out_x3.png'.format(i), out_x3)
+        cv.imwrite('images/{}_out_x4.png'.format(i), out_x4)
 
     K.clear_session()
