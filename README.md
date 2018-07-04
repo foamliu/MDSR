@@ -44,6 +44,9 @@ $ tensorboard --logdir path_to_current_dir/logs
 
 ### 演示
 
+下载 [预训练MDSR模型](https://github.com/foamliu/Colorful-Image-Colorization/releases/download/v1.0/model.06-2.5489.hdf5) 放入 "models" 目录然后执行:
+https://github.com/foamliu/MDSR/releases/download/v1.0/model.16-21.4264.hdf5
+
 ```bash
 $ python demo.py
 ```
