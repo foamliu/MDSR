@@ -48,7 +48,7 @@ $ tensorboard --logdir path_to_current_dir/logs
 $ python demo.py
 ```
 
-输入 | 输出x2 | 输出x3 | 输出x4 | 目标 | 
+输入 | 输出x2 | 输出x3 | 输出x4 | 真实 | 
 |---|---|---|---|---|
 |![image](https://github.com/foamliu/MDSR/raw/master/images/0_input.png) | ![image](https://github.com/foamliu/MDSR/raw/master/images/0_out_x2.png)| ![image](https://github.com/foamliu/MDSR/raw/master/images/0_out_x3.png)| ![image](https://github.com/foamliu/MDSR/raw/master/images/0_out_x4.png)| ![image](https://github.com/foamliu/MDSR/raw/master/images/0_gt.png)|
 |![image](https://github.com/foamliu/MDSR/raw/master/images/1_input.png) | ![image](https://github.com/foamliu/MDSR/raw/master/images/1_out_x2.png)| ![image](https://github.com/foamliu/MDSR/raw/master/images/1_out_x3.png)| ![image](https://github.com/foamliu/MDSR/raw/master/images/1_out_x4.png)| ![image](https://github.com/foamliu/MDSR/raw/master/images/1_gt.png)|
