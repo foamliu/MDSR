@@ -42,17 +42,14 @@ if __name__ == '__main__':
         out = model.predict(x_test)
 
         out_x2 = out[0][0]
-        out_x2 = out_x2.reshape((img_size * 2, img_size * 2, 3))
         out_x2 = np.clip(out_x2, 0.0, 255.0)
         out_x2 = out_x2.astype(np.uint8)
 
-        out_x3 = out[0][1]
-        out_x3 = out_x3.reshape((img_size * 3, img_size * 3, 3))
+        out_x3 = out[1][0]
         out_x3 = np.clip(out_x3, 0.0, 255.0)
         out_x3 = out_x3.astype(np.uint8)
 
-        out_x4 = out[0][2]
-        out_x4 = out_x4.reshape((img_size * 4, img_size * 4, 3))
+        out_x4 = out[2][0]
         out_x4 = np.clip(out_x4, 0.0, 255.0)
         out_x4 = out_x4.astype(np.uint8)
 
