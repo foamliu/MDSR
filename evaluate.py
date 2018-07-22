@@ -1,34 +1,32 @@
-# import the necessary packages
 import os
-import random
 
 import cv2 as cv
 import keras.backend as K
 import numpy as np
+from tqdm import tqdm
 
-from config import img_size, max_scale, image_folder
-from data_generator import random_crop, preprocess_input
+from config import img_size, image_folder, max_scale
 from model import build_model
+from utils import random_crop, preprocess_input, psnr
 
 if __name__ == '__main__':
     model_weights_path = 'models/model.16-21.4264.hdf5'
     model = build_model()
     model.load_weights(model_weights_path)
 
-    print(model.summary())
-
     names_file = 'valid_names.txt'
     with open(names_file, 'r') as f:
         names = f.read().splitlines()
 
-    samples = random.sample(names, 10)
-
     h, w = img_size * max_scale, img_size * max_scale
 
-    for i in range(len(samples)):
-        image_name = samples[i]
-        filename = os.path.join(image_folder, image_name)
-        print('Start processing image: {}'.format(filename))
+    total_psnr_x2 = 0
+    total_psnr_x3 = 0
+    total_psnr_x4 = 0
+
+    for i in tqdm(range(names)):
+        name = names[i]
+        filename = os.path.join(image_folder, name)
         image_bgr = cv.imread(filename)
         gt = random_crop(image_bgr)
 
@@ -44,23 +42,23 @@ if __name__ == '__main__':
         out_x2 = out[0][0]
         out_x2 = np.clip(out_x2, 0.0, 255.0)
         out_x2 = out_x2.astype(np.uint8)
+        gt_x2 = cv.resize(gt, (img_size * 2, img_size * 2), cv.INTER_CUBIC)
+        total_psnr_x2 += psnr(out_x2, gt_x2)
 
         out_x3 = out[1][0]
         out_x3 = np.clip(out_x3, 0.0, 255.0)
         out_x3 = out_x3.astype(np.uint8)
+        gt_x3 = cv.resize(gt, (img_size * 3, img_size * 3), cv.INTER_CUBIC)
+        total_psnr_x2 += psnr(out_x3, gt_x3)
 
         out_x4 = out[2][0]
         out_x4 = np.clip(out_x4, 0.0, 255.0)
         out_x4 = out_x4.astype(np.uint8)
+        gt_x4 = gt
+        total_psnr_x4 += psnr(out_x4, gt_x4)
 
-        if not os.path.exists('images'):
-            os.makedirs('images')
-
-        cv.imwrite('images/{}_input.png'.format(i), input)
-        cv.imwrite('images/{}_input_x4.png'.format(i), input_x4)
-        cv.imwrite('images/{}_gt.png'.format(i), gt)
-        cv.imwrite('images/{}_out_x2.png'.format(i), out_x2)
-        cv.imwrite('images/{}_out_x3.png'.format(i), out_x3)
-        cv.imwrite('images/{}_out_x4.png'.format(i), out_x4)
+    print('PSNRx2(avg): {0:.5f}'.format(total_psnr_x2 / len(names)))
+    print('PSNRx3(avg): {0:.5f}'.format(total_psnr_x3 / len(names)))
+    print('PSNRx4(avg): {0:.5f}'.format(total_psnr_x4 / len(names)))
 
     K.clear_session()

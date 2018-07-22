@@ -7,24 +7,8 @@ import imutils
 import numpy as np
 from keras.utils import Sequence
 
-from config import batch_size, img_size, channel, max_scale
-
-image_folder = '/mnt/code/ImageNet-Downloader/image/resized'
-
-
-def random_crop(image_bgr):
-    full_size = image_bgr.shape[0]
-    u = random.randint(0, full_size - img_size * max_scale)
-    v = random.randint(0, full_size - img_size * max_scale)
-    y = image_bgr[v:v + img_size * max_scale, u:u + img_size * max_scale]
-    return y
-
-
-def preprocess_input(x):
-    x /= 255.
-    x -= 0.5
-    x *= 2.
-    return x
+from config import batch_size, img_size, channel, image_folder
+from utils import random_crop, preprocess_input
 
 
 class DataGenSequence(Sequence):

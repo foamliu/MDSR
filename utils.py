@@ -1,10 +1,14 @@
 import multiprocessing
+import random
 
 import cv2 as cv
 import keras.backend as K
+import numpy as np
 import tensorflow as tf
 from keras.layers import Conv2D, add, Lambda
 from tensorflow.python.client import device_lib
+
+from config import img_size, max_scale
 
 
 def custom_loss(y_true, y_pred):
@@ -118,3 +122,26 @@ def draw_str(dst, target, s):
     x, y = target
     cv.putText(dst, s, (x + 1, y + 1), cv.FONT_HERSHEY_PLAIN, 1.0, (0, 0, 0), thickness=2, lineType=cv.LINE_AA)
     cv.putText(dst, s, (x, y), cv.FONT_HERSHEY_PLAIN, 1.0, (255, 255, 255), lineType=cv.LINE_AA)
+
+
+def random_crop(image_bgr):
+    full_size = image_bgr.shape[0]
+    u = random.randint(0, full_size - img_size * max_scale)
+    v = random.randint(0, full_size - img_size * max_scale)
+    y = image_bgr[v:v + img_size * max_scale, u:u + img_size * max_scale]
+    return y
+
+
+def preprocess_input(x):
+    x /= 255.
+    x -= 0.5
+    x *= 2.
+    return x
+
+
+def psnr(output, gt):
+    height, width, channel = gt.shape
+    diff = output.astype(np.float32) - gt.astype(np.float32)
+    mse = np.sum(diff ** 2) / (height * width)
+    psnr = 10 * np.log10(255 ** 2 / mse)
+    return psnr
