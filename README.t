@@ -99,3 +99,13 @@ $ python demo.py
 |PSNR|n/a|n/a|$(psnr_8_x2)|$(psnr_8_x3)|$(psnr_8_x4)|$(psnr_gt_8_x4)|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/9_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_input_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_out_x2.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_out_x3.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_out_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_gt.png)|
 |PSNR|n/a|n/a|$(psnr_9_x2)|$(psnr_9_x3)|$(psnr_9_x4)|$(psnr_gt_9_x4)|
+
+### 评估
+
+在 4268 张验证集图片上测得 PSNR 并求均值：x2=$(psnr_avg_x2), x3=$(psnr_avg_x3), x4=$(psnr_avg_x4)。
+
+```bash
+$ python evaluate.py
+```
+
+

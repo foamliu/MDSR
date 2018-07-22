@@ -18,5 +18,9 @@ if __name__ == '__main__':
         template = template.replace('$(psnr_{}_x4)'.format(i), '{0:.5f}'.format(eval_result['psnr_list_x4'][i]))
         template = template.replace('$(psnr_gt_{}_x4)'.format(i), str(eval_result['psnr_list_gt_x4'][i]))
 
+    template = template.replace('$(psnr_avg_x2)', '{0:.5f} dB'.format(eval_result['psnr_avg_x2']))
+    template = template.replace('$(psnr_avg_x3)', '{0:.5f} dB'.format(eval_result['psnr_avg_x3']))
+    template = template.replace('$(psnr_avg_x4)', '{0:.5f} dB'.format(eval_result['psnr_avg_x4']))
+
     with open('README.md', 'w', encoding="utf-8") as file:
         file.write(template)

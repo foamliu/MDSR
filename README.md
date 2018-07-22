@@ -99,3 +99,13 @@ $ python demo.py
 |PSNR|n/a|n/a|35.67019|35.76914|34.81775|100|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/9_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_input_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_out_x2.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_out_x3.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_out_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_gt.png)|
 |PSNR|n/a|n/a|32.60735|32.81404|31.73018|100|
+
+### 评估
+
+在 4268 张验证集图片上测得 PSNR 并求均值：x2=32.79244 dB, x3=32.87609 dB, x4=31.78574 dB。
+
+```bash
+$ python evaluate.py
+```
+
+
