@@ -50,7 +50,7 @@ if __name__ == '__main__':
         out_x3 = np.clip(out_x3, 0.0, 255.0)
         out_x3 = out_x3.astype(np.uint8)
         gt_x3 = cv.resize(gt, (img_size * 3, img_size * 3), cv.INTER_CUBIC)
-        total_psnr_x2 += psnr(out_x3, gt_x3)
+        total_psnr_x3 += psnr(out_x3, gt_x3)
 
         out_x4 = out[2][0]
         out_x4 = np.clip(out_x4, 0.0, 255.0)
@@ -71,9 +71,9 @@ if __name__ == '__main__':
             eval_result = json.load(file)
     else:
         eval_result = {}
-    eval_result['psnr_avg_x2'] = np.mean(psnr_avg_x2)
-    eval_result['psnr_avg_x3'] = np.mean(psnr_avg_x3)
-    eval_result['psnr_avg_x4'] = np.mean(psnr_avg_x4)
+    eval_result['psnr_avg_x2'] = psnr_avg_x2
+    eval_result['psnr_avg_x3'] = psnr_avg_x3
+    eval_result['psnr_avg_x4'] = psnr_avg_x4
     with open(eval_path, 'w') as file:
         json.dump(eval_result, file)
 
