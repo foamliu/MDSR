@@ -64,7 +64,7 @@ if __name__ == '__main__':
         bicubic_x4 = cv.resize(input, (img_size * 4, img_size * 4), cv.INTER_CUBIC)
         gt_x4 = gt
         total_psnr_x4 += psnr(out_x4, gt_x4)
-        total_bicubic_x3 += psnr(bicubic_x2, gt_x3)
+        total_bicubic_x4 += psnr(bicubic_x4, gt_x4)
 
     psnr_avg_x2 = total_psnr_x2 / len(names)
     psnr_avg_x3 = total_psnr_x3 / len(names)
