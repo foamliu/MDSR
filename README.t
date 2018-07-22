@@ -77,7 +77,7 @@ $ tensorboard --logdir path_to_current_dir/logs
 $ python demo.py
 ```
 
-|\|输入 | 输入x4 | x2输出 | x3输出 | x4输出 | 真实x4 |
+|x|输入 | 输入x4 | x2输出 | x3输出 | x4输出 | 真实x4 |
 |---|---|---|---|---|---|---|---|
 |PSNR|n/a|n/a|$(psnr_0_x2)|$(psnr_0_x3)|$(psnr_0_x4)|n/a|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/0_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/0_input_x4.png) | ![image](https://github.com/foamliu/MDSR/raw/master/images/0_out_x2.png)| ![image](https://github.com/foamliu/MDSR/raw/master/images/0_out_x3.png)| ![image](https://github.com/foamliu/MDSR/raw/master/images/0_out_x4.png)| ![image](https://github.com/foamliu/MDSR/raw/master/images/0_gt.png)|
