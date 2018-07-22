@@ -78,7 +78,7 @@ $ python demo.py
 ```
 
 |x|输入|输入x4|x2输出|x3输出|x4输出|真实x4|
-|---|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|
 |PSNR|n/a|n/a|17.93854|16.62491|15.11270|n/a|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/0_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/0_input_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/0_out_x2.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/0_out_x3.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/0_out_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/0_gt.png)|
 |PSNR|n/a|n/a|26.38379|26.38453|24.40176|n/a|
