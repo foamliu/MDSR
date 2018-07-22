@@ -30,6 +30,8 @@ if __name__ == '__main__':
     psnr_list_x2 = []
     psnr_list_x3 = []
     psnr_list_x4 = []
+    psnr_list_input_x4 = []
+    psnr_list_gt_x4 = []
 
     for i in range(len(samples)):
         image_name = samples[i]
@@ -37,10 +39,12 @@ if __name__ == '__main__':
         print('Start processing image: {}'.format(filename))
         image_bgr = cv.imread(filename)
         gt = random_crop(image_bgr)
+        psnr_list_gt_x4.append(psnr(gt, gt))
 
         x = cv.resize(gt, (img_size, img_size), cv.INTER_CUBIC)
         input = x.copy()
         input_x4 = cv.resize(input, (img_size * max_scale, img_size * max_scale), cv.INTER_CUBIC)
+        psnr_list_input_x4.append(psnr(input_x4, gt))
 
         x = preprocess_input(x.astype(np.float32))
         x_test = np.empty((1, img_size, img_size, 3), dtype=np.float32)
@@ -83,6 +87,8 @@ if __name__ == '__main__':
     eval_result['psnr_list_x2'] = psnr_list_x2
     eval_result['psnr_list_x3'] = psnr_list_x3
     eval_result['psnr_list_x4'] = psnr_list_x4
+    eval_result['psnr_list_input_x4'] = psnr_list_input_x4
+    eval_result['psnr_list_gt_x4'] = psnr_list_gt_x4
     with open(eval_path, 'w') as file:
         json.dump(eval_result, file, indent=4)
 

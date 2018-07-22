@@ -79,27 +79,26 @@ $ python demo.py
 
 |x|输入|输入x4|x2输出|x3输出|x4输出|真实x4|
 |---|---|---|---|---|---|---|
-|PSNR|n/a|n/a|17.93854|16.62491|15.11270|n/a|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/0_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/0_input_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/0_out_x2.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/0_out_x3.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/0_out_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/0_gt.png)|
-|PSNR|n/a|n/a|26.38379|26.38453|24.40176|n/a|
+|PSNR|n/a|n/a|17.93854|16.62491|15.11270|n/a|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/1_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/1_input_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/1_out_x2.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/1_out_x3.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/1_out_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/1_gt.png)|
-|PSNR|n/a|n/a|18.11153|16.93018|15.04699|n/a|
+|PSNR|n/a|n/a|26.38379|26.38453|24.40176|n/a|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/2_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/2_input_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/2_out_x2.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/2_out_x3.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/2_out_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/2_gt.png)|
-|PSNR|n/a|n/a|26.83745|25.68833|24.51342|n/a|
+|PSNR|n/a|n/a|18.11153|16.93018|15.04699|n/a|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/3_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/3_input_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/3_out_x2.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/3_out_x3.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/3_out_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/3_gt.png)|
-|PSNR|n/a|n/a|18.18819|16.87794|15.31124|n/a|
+|PSNR|n/a|n/a|26.83745|25.68833|24.51342|n/a|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/4_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/4_input_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/4_out_x2.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/4_out_x3.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/4_out_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/4_gt.png)|
-|PSNR|n/a|n/a|18.29309|16.85825|14.89720|n/a|
+|PSNR|n/a|n/a|18.18819|16.87794|15.31124|n/a|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/5_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/5_input_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/5_out_x2.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/5_out_x3.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/5_out_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/5_gt.png)|
-|PSNR|n/a|n/a|22.97038|20.89238|19.83759|n/a|
+|PSNR|n/a|n/a|18.29309|16.85825|14.89720|n/a|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/6_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/6_input_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/6_out_x2.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/6_out_x3.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/6_out_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/6_gt.png)|
-|PSNR|n/a|n/a|18.35301|17.03035|16.12836|n/a|
+|PSNR|n/a|n/a|22.97038|20.89238|19.83759|n/a|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/7_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/7_input_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/7_out_x2.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/7_out_x3.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/7_out_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/7_gt.png)|
-|PSNR|n/a|n/a|18.84457|16.86937|15.48127|n/a|
+|PSNR|n/a|n/a|18.35301|17.03035|16.12836|n/a|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/8_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/8_input_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/8_out_x2.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/8_out_x3.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/8_out_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/8_gt.png)|
-|PSNR|n/a|n/a|26.46391|24.59726|22.41831|n/a|
+|PSNR|n/a|n/a|18.84457|16.86937|15.48127|n/a|
 |图片|![image](https://github.com/foamliu/MDSR/raw/master/images/9_input.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_input_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_out_x2.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_out_x3.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_out_x4.png)|![image](https://github.com/foamliu/MDSR/raw/master/images/9_gt.png)|
-
+|PSNR|n/a|n/a|26.46391|24.59726|22.41831|n/a|
 
 
 ## 如何使用
