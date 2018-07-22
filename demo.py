@@ -1,4 +1,5 @@
 # import the necessary packages
+import json
 import os
 import random
 
@@ -6,9 +7,10 @@ import cv2 as cv
 import keras.backend as K
 import numpy as np
 
-from config import img_size, max_scale, image_folder
+from config import img_size, max_scale, image_folder, eval_path
 from data_generator import random_crop, preprocess_input
 from model import build_model
+from utils import psnr
 
 if __name__ == '__main__':
     model_weights_path = 'models/model.16-21.4264.hdf5'
@@ -24,6 +26,10 @@ if __name__ == '__main__':
     samples = random.sample(names, 10)
 
     h, w = img_size * max_scale, img_size * max_scale
+
+    psnr_list_x2 = []
+    psnr_list_x3 = []
+    psnr_list_x4 = []
 
     for i in range(len(samples)):
         image_name = samples[i]
@@ -44,14 +50,20 @@ if __name__ == '__main__':
         out_x2 = out[0][0]
         out_x2 = np.clip(out_x2, 0.0, 255.0)
         out_x2 = out_x2.astype(np.uint8)
+        gt_x2 = cv.resize(gt, (img_size * 2, img_size * 2), cv.INTER_CUBIC)
+        psnr_list_x2.append(psnr(out_x2, gt_x2))
 
         out_x3 = out[1][0]
         out_x3 = np.clip(out_x3, 0.0, 255.0)
         out_x3 = out_x3.astype(np.uint8)
+        gt_x3 = cv.resize(gt, (img_size * 3, img_size * 3), cv.INTER_CUBIC)
+        psnr_list_x3.append(psnr(out_x3, gt_x3))
 
         out_x4 = out[2][0]
         out_x4 = np.clip(out_x4, 0.0, 255.0)
         out_x4 = out_x4.astype(np.uint8)
+        gt_x4 = cv.resize(gt, (img_size * 4, img_size * 4), cv.INTER_CUBIC)
+        psnr_list_x4.append(psnr(out_x4, gt_x4))
 
         if not os.path.exists('images'):
             os.makedirs('images')
@@ -62,5 +74,16 @@ if __name__ == '__main__':
         cv.imwrite('images/{}_out_x2.png'.format(i), out_x2)
         cv.imwrite('images/{}_out_x3.png'.format(i), out_x3)
         cv.imwrite('images/{}_out_x4.png'.format(i), out_x4)
+
+    if os.path.isfile(eval_path):
+        with open(eval_path) as file:
+            eval_result = json.load(file)
+    else:
+        eval_result = {}
+    eval_result['psnr_list_x2'] = psnr_list_x2
+    eval_result['psnr_list_x3'] = psnr_list_x3
+    eval_result['psnr_list_x4'] = psnr_list_x4
+    with open(eval_path, 'w') as file:
+        json.dump(eval_result, file, indent=4)
 
     K.clear_session()
