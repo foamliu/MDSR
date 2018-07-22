@@ -71,7 +71,7 @@ if __name__ == '__main__':
     psnr_avg_x4 = total_psnr_x4 / len(names)
     bicubic_avg_x2 = total_bicubic_x2 / len(names)
     bicubic_avg_x3 = total_bicubic_x3 / len(names)
-    bicubic_avg_x4 = total_bicubic_x3 / len(names)
+    bicubic_avg_x4 = total_bicubic_x4 / len(names)
 
     print('PSNRx2(avg): {0:.5f}'.format(psnr_avg_x2))
     print('PSNRx3(avg): {0:.5f}'.format(psnr_avg_x3))
