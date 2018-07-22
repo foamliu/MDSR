@@ -12,9 +12,9 @@ if __name__ == '__main__':
     template = ''.join(template)
 
     for i in range(10):
-        template = template.replace('$(psnr_{}_x2)'.format(i), 'PSNR: {0:.5f}'.format(eval_result['psnr_list_x2'][i]))
-        template = template.replace('$(psnr_{}_x3)'.format(i), 'PSNR: {0:.5f}'.format(eval_result['psnr_list_x3'][i]))
-        template = template.replace('$(psnr_{}_x4)'.format(i), 'PSNR: {0:.5f}'.format(eval_result['psnr_list_x4'][i]))
+        template = template.replace('$(psnr_{}_x2)'.format(i), '{0:.5f}'.format(eval_result['psnr_list_x2'][i]))
+        template = template.replace('$(psnr_{}_x3)'.format(i), '{0:.5f}'.format(eval_result['psnr_list_x3'][i]))
+        template = template.replace('$(psnr_{}_x4)'.format(i), '{0:.5f}'.format(eval_result['psnr_list_x4'][i]))
 
     with open('README.md', 'w', encoding="utf-8") as file:
         file.write(template)
