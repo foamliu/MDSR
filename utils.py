@@ -1,3 +1,4 @@
+import math
 import multiprocessing
 import random
 
@@ -139,9 +140,9 @@ def preprocess_input(x):
     return x
 
 
-def psnr(output, gt):
-    height, width, channel = gt.shape
-    diff = output.astype(np.float32) - gt.astype(np.float32)
-    mse = np.sum(diff ** 2) / (height * width)
-    psnr = 10 * np.log10(255 ** 2 / mse)
-    return psnr
+def psnr(img1, img2):
+    mse = np.mean((img1 - img2) ** 2)
+    if mse == 0:
+        return 100
+    PIXEL_MAX = 255.0
+    return 20 * math.log10(PIXEL_MAX / math.sqrt(mse))
