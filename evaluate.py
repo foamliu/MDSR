@@ -1,3 +1,4 @@
+import json
 import os
 
 import cv2 as cv
@@ -5,7 +6,7 @@ import keras.backend as K
 import numpy as np
 from tqdm import tqdm
 
-from config import img_size, image_folder, max_scale
+from config import img_size, image_folder, max_scale, eval_path
 from model import build_model
 from utils import random_crop, preprocess_input, psnr
 
@@ -24,7 +25,7 @@ if __name__ == '__main__':
     total_psnr_x3 = 0
     total_psnr_x4 = 0
 
-    for i in tqdm(range(names)):
+    for i in tqdm(range(len(names))):
         name = names[i]
         filename = os.path.join(image_folder, name)
         image_bgr = cv.imread(filename)
@@ -57,8 +58,23 @@ if __name__ == '__main__':
         gt_x4 = gt
         total_psnr_x4 += psnr(out_x4, gt_x4)
 
-    print('PSNRx2(avg): {0:.5f}'.format(total_psnr_x2 / len(names)))
-    print('PSNRx3(avg): {0:.5f}'.format(total_psnr_x3 / len(names)))
-    print('PSNRx4(avg): {0:.5f}'.format(total_psnr_x4 / len(names)))
+    psnr_avg_x2 = total_psnr_x2 / len(names)
+    psnr_avg_x3 = total_psnr_x3 / len(names)
+    psnr_avg_x4 = total_psnr_x4 / len(names)
+
+    print('PSNRx2(avg): {0:.5f}'.format(psnr_avg_x2))
+    print('PSNRx3(avg): {0:.5f}'.format(psnr_avg_x3))
+    print('PSNRx4(avg): {0:.5f}'.format(psnr_avg_x4))
+
+    if os.path.isfile(eval_path):
+        with open(eval_path) as file:
+            eval_result = json.load(file)
+    else:
+        eval_result = {}
+    eval_result['psnr_avg_x2'] = np.mean(psnr_avg_x2)
+    eval_result['psnr_avg_x3'] = np.mean(psnr_avg_x3)
+    eval_result['psnr_avg_x4'] = np.mean(psnr_avg_x4)
+    with open(eval_path, 'w') as file:
+        json.dump(eval_result, file)
 
     K.clear_session()
