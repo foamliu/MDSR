@@ -43,24 +43,24 @@ class DataGenSequence(Sequence):
             # b: 0 <=b<=255, g: 0 <=g<=255, r: 0 <=r<=255.
             image_bgr = cv.imread(filename)
 
-            y = random_crop(image_bgr)
+            gt = random_crop(image_bgr)
 
             if np.random.random_sample() > 0.5:
-                y = np.fliplr(y)
+                gt = np.fliplr(gt)
 
             angle = random.choice((0, 90, 180, 270))
-            y = imutils.rotate_bound(y, angle)
+            gt = imutils.rotate_bound(gt, angle)
 
-            x = cv.resize(y, (img_size, img_size), cv.INTER_CUBIC)
+            x = cv.resize(gt, (img_size, img_size), cv.INTER_CUBIC)
 
-            y_x2 = cv.resize(y, (img_size * 2, img_size * 2), cv.INTER_CUBIC)
-            y_x3 = cv.resize(y, (img_size * 3, img_size * 3), cv.INTER_CUBIC)
-            y_x4 = y
+            gt_x2 = cv.resize(gt, (img_size * 2, img_size * 2), cv.INTER_CUBIC)
+            gt_x3 = cv.resize(gt, (img_size * 3, img_size * 3), cv.INTER_CUBIC)
+            gt_x4 = gt
 
-            batch_x[i_batch, :, :] = preprocess_input(x.astype(np.float32))
-            batch_y_x2[i_batch, :, :] = y_x2
-            batch_y_x3[i_batch, :, :] = y_x3
-            batch_y_x4[i_batch, :, :] = y_x4
+            batch_x[i_batch, :, :] = preprocess_input(x)
+            batch_y_x2[i_batch, :, :] = gt_x2
+            batch_y_x3[i_batch, :, :] = gt_x3
+            batch_y_x4[i_batch, :, :] = gt_x4
 
             i += 1
 

@@ -125,18 +125,31 @@ def draw_str(dst, target, s):
     cv.putText(dst, s, (x, y), cv.FONT_HERSHEY_PLAIN, 1.0, (255, 255, 255), lineType=cv.LINE_AA)
 
 
-def random_crop(image_bgr):
-    full_size = image_bgr.shape[0]
-    u = random.randint(0, full_size - img_size * max_scale)
-    v = random.randint(0, full_size - img_size * max_scale)
-    y = image_bgr[v:v + img_size * max_scale, u:u + img_size * max_scale]
-    return y
+def random_crop(image_bgr, scale):
+    full_height, full_width = image_bgr.shape[:2]
+    gt_size = img_size * scale
+    if full_height < gt_size or full_width < gt_size:
+        gt = np.zeros((gt_size, gt_size, 3))
+        u = min(full_width, gt_size)
+        v = min(full_height, gt_size)
+        gt[0:v, 0:u, :] = image_bgr[0:v, 0:u, :]
+    else:
+        u = random.randint(0, full_width - gt_size)
+        v = random.randint(0, full_height - gt_size)
+        gt = image_bgr[v:v + gt_size, u:u + gt_size]
+
+    return gt
 
 
 def preprocess_input(x):
-    x /= 255.
-    x -= 0.5
-    x *= 2.
+    # subtract the mean RGB value of the ImageNet dataset.
+    b_mean = 104.00698793
+    g_mean = 116.66876762
+    r_mean = 122.67891434
+    x = x.astype(np.float32)
+    x[:, :, 0] -= b_mean
+    x[:, :, 1] -= g_mean
+    x[:, :, 2] -= r_mean
     return x
 
 
@@ -146,3 +159,13 @@ def psnr(img1, img2):
         return 100
     PIXEL_MAX = 255.0
     return 20 * math.log10(PIXEL_MAX / math.sqrt(mse))
+
+
+def get_example_numbers():
+    with open('train_names.txt', 'r') as f:
+        names = f.read().splitlines()
+        num_train_samples = len(names)
+    with open('valid_names.txt', 'r') as f:
+        names = f.read().splitlines()
+        num_valid_samples = len(names)
+    return num_train_samples, num_valid_samples
