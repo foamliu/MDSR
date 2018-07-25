@@ -7,7 +7,7 @@ import imutils
 import numpy as np
 from keras.utils import Sequence
 
-from config import batch_size, img_size, channel, image_folder
+from config import batch_size, img_size, channel, image_folder, max_scale
 from utils import random_crop, preprocess_input
 
 
@@ -38,12 +38,12 @@ class DataGenSequence(Sequence):
         batch_y_x4 = np.empty((length, img_size * 4, img_size * 4, channel), dtype=np.float32)
 
         for i_batch in range(length):
-            name = self.names[i]
+            name = self.names[i + i_batch]
             filename = os.path.join(image_folder, name)
             # b: 0 <=b<=255, g: 0 <=g<=255, r: 0 <=r<=255.
             image_bgr = cv.imread(filename)
 
-            gt = random_crop(image_bgr)
+            gt = random_crop(image_bgr, max_scale)
 
             if np.random.random_sample() > 0.5:
                 gt = np.fliplr(gt)
@@ -61,8 +61,6 @@ class DataGenSequence(Sequence):
             batch_y_x2[i_batch, :, :] = gt_x2
             batch_y_x3[i_batch, :, :] = gt_x3
             batch_y_x4[i_batch, :, :] = gt_x4
-
-            i += 1
 
         return batch_x, [batch_y_x2, batch_y_x3, batch_y_x4]
 
