@@ -70,7 +70,7 @@ $ tensorboard --logdir path_to_current_dir/logs
 
 ### 演示
 
-下载预训练的 [MDSR模型](https://github.com/foamliu/MDSR/releases/download/v1.0/model.16-21.4264.hdf5)，放入 "models" 目录。然后执行:
+下载预训练的 [MDSR模型](https://github.com/foamliu/MDSR/releases/download/v1.0/model.27-20.9301.hdf5)，放入 "models" 目录。然后执行:
 
 
 ```bash
