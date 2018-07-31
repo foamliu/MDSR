@@ -32,7 +32,7 @@ if __name__ == '__main__':
         name = names[i]
         filename = os.path.join(image_folder, name)
         image_bgr = cv.imread(filename)
-        gt = random_crop(image_bgr)
+        gt = random_crop(image_bgr, scale)
 
         x = cv.resize(gt, (img_size, img_size), cv.INTER_CUBIC)
         input = x.copy()
