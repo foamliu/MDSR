@@ -38,7 +38,7 @@ if __name__ == '__main__':
         filename = os.path.join(image_folder, image_name)
         print('Start processing image: {}'.format(filename))
         image_bgr = cv.imread(filename)
-        gt = random_crop(image_bgr)
+        gt = random_crop(image_bgr, max_scale)
         psnr_list_gt_x4.append(psnr(gt, gt))
 
         x = cv.resize(gt, (img_size, img_size), cv.INTER_CUBIC)

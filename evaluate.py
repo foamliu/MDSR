@@ -6,7 +6,7 @@ import keras.backend as K
 import numpy as np
 from tqdm import tqdm
 
-from config import img_size, image_folder, max_scale, eval_path, best_model
+from config import img_size, image_folder, max_scale, eval_path, best_model, max_scale
 from model import build_model
 from utils import random_crop, preprocess_input, psnr
 
@@ -32,7 +32,7 @@ if __name__ == '__main__':
         name = names[i]
         filename = os.path.join(image_folder, name)
         image_bgr = cv.imread(filename)
-        gt = random_crop(image_bgr, scale)
+        gt = random_crop(image_bgr, max_scale)
 
         x = cv.resize(gt, (img_size, img_size), cv.INTER_CUBIC)
         input = x.copy()
