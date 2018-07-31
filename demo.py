@@ -7,13 +7,13 @@ import cv2 as cv
 import keras.backend as K
 import numpy as np
 
-from config import img_size, max_scale, image_folder, eval_path
+from config import img_size, max_scale, image_folder, eval_path, best_model
 from data_generator import random_crop, preprocess_input
 from model import build_model
 from utils import psnr
 
 if __name__ == '__main__':
-    model_weights_path = 'models/model.16-21.4264.hdf5'
+    model_weights_path = os.path.join('models', best_model)
     model = build_model()
     model.load_weights(model_weights_path)
 

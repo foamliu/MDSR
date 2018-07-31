@@ -6,12 +6,12 @@ import keras.backend as K
 import numpy as np
 from tqdm import tqdm
 
-from config import img_size, image_folder, max_scale, eval_path
+from config import img_size, image_folder, max_scale, eval_path, best_model
 from model import build_model
 from utils import random_crop, preprocess_input, psnr
 
 if __name__ == '__main__':
-    model_weights_path = 'models/model.16-21.4264.hdf5'
+    model_weights_path = os.path.join('models', best_model)
     model = build_model()
     model.load_weights(model_weights_path)
 

@@ -8,3 +8,4 @@ patience = 40
 max_scale = 4
 image_folder = '/mnt/code/ImageNet-Downloader/image/resized'
 eval_path = 'eval.json'
+best_model = 'model.27-20.9301.hdf5'
